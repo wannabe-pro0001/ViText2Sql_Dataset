@@ -1,0 +1,82 @@
+[
+    {
+        "instruction": "Tôi có bảng: tạp chí (trang chủ,id tạp chí,tên). Hãy trả lời câu sau thành câu truy vấn: hiển thị trang chủ của hội nghị PVLDB .",
+        "output": "select trang chủ from tạp chí where tên = \"PVLDB\""
+    },
+    {
+        "instruction": "Tôi có bảng: tác giả (id tác giả,trang chủ,tên,id tổ chức). Hãy trả lời câu sau thành câu truy vấn: hiển thị trang chủ của H. V. Jagadish .",
+        "output": "select trang chủ from tác giả where tên = \"H. V. Jagadish\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: cho biết bản tóm tắt của bài báo với tiêu đề là ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' .",
+        "output": "select tóm tắt from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: cho biết năm xuất bản của bài báo ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' .",
+        "output": "select năm from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: năm xuất bản của bài báo ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' là năm nào ?",
+        "output": "select năm from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: những bài báo nào đã được xuất bản sau năm 2000 ?",
+        "output": "select tiêu đề from bài báo where năm > 2000"
+    },
+    {
+        "instruction": "Tôi có bảng: hội nghị (id hội nghị,trang chủ,tên). Hãy trả lời câu sau thành câu truy vấn: cho biết trang chủ của hội nghị VLDB .",
+        "output": "select trang chủ from hội nghị where tên = \"VLDB\""
+    },
+    {
+        "instruction": "Tôi có bảng: từ khoá (từ khoá,id từ khoá). Hãy trả lời câu sau thành câu truy vấn: liệt kê tất cả các từ khoá .",
+        "output": "select từ khoá from từ khoá"
+    },
+    {
+        "instruction": "Tôi có bảng: tổ chức (lục địa,trang chủ,tên,id tổ chức). Hãy trả lời câu sau thành câu truy vấn: liệt kê tất cả các tổ chức .",
+        "output": "select tên from tổ chức"
+    },
+    {
+        "instruction": "Tôi có bảng: tổ chức (lục địa,trang chủ,tên,id tổ chức). Hãy trả lời câu sau thành câu truy vấn: liệt kê tất cả các tổ chức ở Bắc Mỹ .",
+        "output": "select tên from tổ chức where lục địa = \"North America\""
+    },
+    {
+        "instruction": "Tôi có bảng: tổ chức (lục địa,trang chủ,tên,id tổ chức). Hãy trả lời câu sau thành câu truy vấn: cho biết trang chủ của ' Đại học Michigan ' .",
+        "output": "select trang chủ from tổ chức where tên = \"University of Michigan\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: cho biết số lượng các bài báo đã trích dẫn bài báo với tiêu đề ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' .",
+        "output": "select số lượng trích dẫn from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: có bao nhiêu bài báo đã trích dẫn bài báo với tiêu đề ' Làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' ?",
+        "output": "select số lượng trích dẫn from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: số lượng bài báo đã trích dẫn bài báo ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' là bao nhiêu ?",
+        "output": "select số lượng trích dẫn from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: bài báo ' làm cho hệ thống cơ sở dữ liệu có thể sử dụng được ' có bao nhiêu trích dẫn ?",
+        "output": "select số lượng trích dẫn from bài báo where tiêu đề = \"Making database systems usable\""
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm). Hãy trả lời câu sau thành câu truy vấn: bài báo nào có hơn 200 trích dẫn ?",
+        "output": "select tiêu đề from bài báo where số lượng trích dẫn > 200"
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm); tạp chí (trang chủ,id tạp chí,tên). Hãy trả lời câu sau thành câu truy vấn: liệt kê các tác giả có một số bài báo tại PVLDB 2010 .",
+        "output": "select t1.tên from bài báo as t4 join tạp chí as t2 on t4.id tạp chí = t2.id tạp chí join viết as t3 on t3.id bài báo = t4.id bài báo join tác giả as t1 on t3.id tác giả = t1.id tác giả where t2.tên = \"PVLDB\" and t4.năm = 2010"
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm); tạp chí (trang chủ,id tạp chí,tên). Hãy trả lời câu sau thành câu truy vấn: những tác giả nào có một số bài báo tại hội nghị PVLDB được tổ chức sau năm 2010 ?",
+        "output": "select t1.tên from bài báo as t4 join tạp chí as t2 on t4.id tạp chí = t2.id tạp chí join viết as t3 on t3.id bài báo = t4.id bài báo join tác giả as t1 on t3.id tác giả = t1.id tác giả where t2.tên = \"PVLDB\" and t4.năm > 2010"
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm); hội nghị (id hội nghị,trang chủ,tên). Hãy trả lời câu sau thành câu truy vấn: những tác giả nào có các bài báo tại hội nghị VLDB diễn ra vào năm 2002 ?",
+        "output": "select t1.tên from bài báo as t4 join hội nghị as t2 on t4.id hội nghị = t2.id hội nghị join viết as t3 on t3.id bài báo = t4.id bài báo join tác giả as t1 on t3.id tác giả = t1.id tác giả where t2.tên = \"VLDB\" and t4.năm = 2002"
+    },
+    {
+        "instruction": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm); hội nghị (id hội nghị,trang chủ,tên). Hãy trả lời câu sau thành câu truy vấn: những tác giả nào có các bài báo tại hội nghị VLDB được tổ chúc trước năm 2002 ?",
+        "output": "select t1.tên from bài báo as t4 join hội nghị as t2 on t4.id hội nghị = t2.id hội nghị join viết as t3 on t3.id bài báo = t4.id bài báo join tác giả as t1 on t3.id tác giả = t1.id tác giả where t2.tên = \"VLDB\" and t4.năm < 2002"
+    }
+]
