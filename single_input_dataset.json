@@ -1,0 +1,402 @@
+[
+    {
+        "inputs": "Tôi có bảng: cầu thủ (id cầu thủ,năm sinh,tháng sinh,ngày sinh,đất nước nơi sinh,tiểu bang nơi sinh,thành phố nơi sinh,năm mất,tháng mất,ngày mất,đất nước nơi mất,tiểu bang nơi mất,thành phố nơi mất,tên,họ,tên đệm,cân nặng,chiều cao,tay đánh thuận,tay ném thuận,ngày ra mắt,ngày chơi trận cuối,id trong retro,id trong brref). Hãy trả lời bằng câu truy vấn: Cho biết 3 quốc gia có ít cầu thủ nhất .",
+        "labels": "select đất nước nơi sinh from cầu thủ group by đất nước nơi sinh order by count ( * ) asc limit 3"
+    },
+    {
+        "inputs": "Tôi có bảng: khách hàng (id,tên,họ,công ty,địa chỉ,thành phố,tiểu bang,quốc gia,mã bưu điện,số điện thoại,số fax,e-mail,id đại diện hỗ trợ). Hãy trả lời bằng câu truy vấn: Có bao nhiêu khách hàng sống ở ' Prague ' ?",
+        "labels": "select count ( * ) from khách hàng where thành phố = \"Prague\""
+    },
+    {
+        "inputs": "Tôi có bảng: phi công (id phi công,tên,tuổi tác). Hãy trả lời bằng câu truy vấn: Sắp xếp tên của tất cả các phi công theo thứ tự giảm dần về độ tuổi .",
+        "labels": "select tên from phi công order by tuổi tác desc"
+    },
+    {
+        "inputs": "Tôi có bảng: sân bay (id sân bay,tên,thành phố,quốc gia,x,y,độ cao,iata,icao). Hãy trả lời bằng câu truy vấn: Mỗi quốc gia có bao nhiêu sân bay ? Sắp xếp các quốc gia theo thứ tự giảm dần về số lượng các sân bay ở từng quốc gia .",
+        "labels": "select count ( * ) , quốc gia from sân bay group by quốc gia order by count ( * ) desc"
+    },
+    {
+        "inputs": "Tôi có bảng: thành phố (tên thành phố,dân số,tên quốc gia,tên tiểu bang). Hãy trả lời bằng câu truy vấn: có bao nhiêu người sống ở thủ đô của texas ?",
+        "labels": "select dân số from thành phố where tên thành phố = ( select thủ đô from tiểu bang where tên tiểu bang = \"texas\" )"
+    },
+    {
+        "inputs": "Tôi có bảng: trường đại học (id trường,trường học,địa điểm,năm thành lập,liên kết,số lượng nhập học,biệt danh,giải đấu chính). Hãy trả lời bằng câu truy vấn: Tìm năm thành lập của trường ngoài ' công lập ' mới nhất .",
+        "labels": "select năm thành lập from trường đại học where liên kết != \"Public\" order by năm thành lập desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: cuộc đua (id cuộc đua,năm,vòng,id vòng đua,tên,ngày,thời gian,đường dẫn). Hãy trả lời bằng câu truy vấn: Tìm tên của tất cả các cuộc đua được tổ chức vào giữa năm 2014 và năm 2017 ?",
+        "labels": "select distinct tên from cuộc đua where năm between 2014 and 2017"
+    },
+    {
+        "inputs": "Tôi có bảng: nhà hàng (id,tên,loại thực phẩm,tên thành phố,xếp hạng đánh giá); địa điểm (id nhà hàng,số nhà,tên đường,tên thành phố). Hãy trả lời bằng câu truy vấn: Những nhà hàng ẩm thực ' Ả Rập ' nào được đánh giá cao tại ' Buchanan , San Francisco ' ? Cho biết tên và địa chỉ của những nhà hàng này .",
+        "labels": "select t2.số nhà , t1.tên from nhà hàng as t1 join địa điểm as t2 on t1.id = t2.id nhà hàng where t2.tên thành phố = \"san francisco\" and t2.tên đường = \"buchanan\" and t1.loại thực phẩm = \"arabic\" and t1.xếp hạng đánh giá > 2.5"
+    },
+    {
+        "inputs": "Tôi có bảng: ký túc xá (id ký túc xá,tên ký túc xá,sức chứa,giới tính). Hãy trả lời bằng câu truy vấn: Những ký túc xá của các học sinh thuộc giới tính X có sức chứa trung bình và tổng sức chứa là bao nhiêu ?",
+        "labels": "select avg ( sức chứa ) , sum ( sức chứa ) from ký túc xá where giới tính = \"X\""
+    },
+    {
+        "inputs": "Tôi có bảng: album (id album,tiêu đề,id nghệ sĩ); nghệ sĩ (id nghệ sĩ,tên). Hãy trả lời bằng câu truy vấn: Liệt kê tên và id của tất cả các nghệ sĩ có ít nhất 3 album theo thứ tự bảng chữ cái của tên .",
+        "labels": "select t2.tên , t1.id nghệ sĩ from album as t1 join nghệ sĩ as t2 on t1.id nghệ sĩ = t2.id nghệ sĩ group by t1.id nghệ sĩ having count ( * ) >= 3 order by t2.tên"
+    },
+    {
+        "inputs": "Tôi có bảng: sông (tên sông,chiều dài,tên quốc gia,đi qua). Hãy trả lời bằng câu truy vấn: tiểu bang có dòng sông dài nhất chảy qua là tiểu bang nào ?",
+        "labels": "select đi qua from sông where chiều dài = ( select max ( chiều dài ) from sông )"
+    },
+    {
+        "inputs": "Tôi có bảng: cá nhân (id cá nhân,quốc tịch,tên,ngày sinh,chiều cao). Hãy trả lời bằng câu truy vấn: Liệt kê tên của những người không phải là người chơi poker .",
+        "labels": "select tên from cá nhân where id cá nhân not in ( select id cá nhân from người chơi poker )"
+    },
+    {
+        "inputs": "Tôi có bảng: máy bay (id máy bay,máy bay,mô tả,tổng trọng lượng tối đa,tổng diện tích của đĩa,trọng tải tối đa của đĩa); trận đấu (vòng,địa điểm,quốc gia,ngày,tốc độ nhanh nhất vòng loại,phi công chiến thắng,máy bay chiến thắng). Hãy trả lời bằng câu truy vấn: Đối với mỗi máy bay đã giành được giải thưởng , cho biết tên của nó và số lần nó dành được giải thưởng ?",
+        "labels": "select t1.máy bay , count ( * ) from máy bay as t1 join trận đấu as t2 on t1.id máy bay = t2.máy bay chiến thắng group by t2.máy bay chiến thắng"
+    },
+    {
+        "inputs": "Tôi có bảng: hoá đơn (id,id khách hàng,ngày lập hoá đơn,địa chỉ thanh toán,thành phố thanh toán,tiểu bang thanh toán,quốc gia thanh toán,mã bưu điện,tổng). Hãy trả lời bằng câu truy vấn: Có bao nhiêu hoá đơn được lập ở mỗi tiểu bang tại Hoa Kỳ ?",
+        "labels": "select tiểu bang thanh toán , count ( * ) from hoá đơn where quốc gia thanh toán = \"USA\" group by tiểu bang thanh toán"
+    },
+    {
+        "inputs": "Tôi có bảng: cao thấp (tên tiểu bang,độ cao cao nhất,điểm thấp nhất,điểm cao nhất,độ cao thấp nhất). Hãy trả lời bằng câu truy vấn: độ cao của điểm cao nhất ở hoa kỳ là bao nhiêu ?",
+        "labels": "select max ( độ cao cao nhất ) from cao thấp"
+    },
+    {
+        "inputs": "Tôi có bảng: trận chiến (id,tên,ngày,chỉ huy quân Bungari,chỉ huy quân Latin,kết quả); tàu (mất mát trong trận chiến,id,tên,trọng tải,loại tàu,địa điểm,số phận tàu). Hãy trả lời bằng câu truy vấn: Liệt kê tên và ngày diễn ra trận chiến đã gây ra mất mát là con tàu có tên ' Lettice ' và con tàu có tên ' HMS Atalanta ' .",
+        "labels": "select t1.tên , t1.ngày from trận chiến as t1 join tàu as t2 on t1.id = t2.mất mát trong trận chiến where t2.tên = \"Lettice\" intersect select t1.tên , t1.ngày from trận chiến as t1 join tàu as t2 on t1.id = t2.mất mát trong trận chiến where t2.tên = \"HMS Atalanta\""
+    },
+    {
+        "inputs": "Tôi có bảng: ngân hàng (id chi nhánh,tên chi nhánh,số lượng khách hàng,thành phố,tiểu bang). Hãy trả lời bằng câu truy vấn: Cho biết số lượng các thành phố khác nhau mà tất cả các ngân hàng được đặt tại .",
+        "labels": "select count ( distinct thành phố ) from ngân hàng"
+    },
+    {
+        "inputs": "Tôi có bảng: trường học (id trường,tên trường,địa điểm,linh vật,số lượng nhập học,phân hạng ihsaa,phân hạng bóng đá ihsaa,quận). Hãy trả lời bằng câu truy vấn: Hiển thị tên của tất cả các trường học theo thứ tự bảng chữ cái .",
+        "labels": "select tên trường from trường học order by tên trường"
+    },
+    {
+        "inputs": "Tôi có bảng: cụm từ khoá của bài báo (id bài báo,id cụm từ khoá); cụm từ khoá (id cụm từ khoá,tên cụm từ khoá). Hãy trả lời bằng câu truy vấn: liệt kê những bài báo về chủ đề ' trả lời câu hỏi ' đã được xuất bản",
+        "labels": "select distinct t3.id bài báo from cụm từ khoá của bài báo as t2 join cụm từ khoá as t1 on t2.id cụm từ khoá = t1.id cụm từ khoá join bài báo as t3 on t3.id bài báo = t2.id bài báo where t1.tên cụm từ khoá = \"Question Answering\""
+    },
+    {
+        "inputs": "Tôi có bảng: thành viên (id thành viên,số thẻ,tên,quê quán,cấp độ). Hãy trả lời bằng câu truy vấn: Cấp độ nào có nhiều thành viên sở hữu nhất ?",
+        "labels": "select cấp độ from thành viên group by cấp độ order by count ( * ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: sản phẩm (id sản phẩm,mã màu,mã danh mục sản phẩm,tên sản phẩm,giá mua thông thường,giá bán thông thường,mô tả về Sản phẩm,chi tiết khác về sản phẩm); đặc tính của sản phẩm (id sản phẩm,id đặc tính,giá trị đặc tính của sản phẩm). Hãy trả lời bằng câu truy vấn: Những đặc tính của sản phẩm ' thì là Ai Cập ' có tên và loại dữ liệu là gì ?",
+        "labels": "select t3.tên đặc tính , t3.loại dữ liệu đặc tính from sản phẩm as t1 join đặc tính của sản phẩm as t2 on t1.id sản phẩm = t2.id sản phẩm join đặc tính as t3 on t2.id đặc tính = t3.id đặc tính where t1.tên sản phẩm = \"cumin\""
+    },
+    {
+        "inputs": "Tôi có bảng: sinh viên (id sinh viên,họ,tên,tuổi,giới tính,chuyên ngành,cố vấn,mã thành phố). Hãy trả lời bằng câu truy vấn: Những sinh viên có độ tuổi thấp hơn độ tuổi trung bình có tên và họ là gì ?",
+        "labels": "select tên , họ from sinh viên where tuổi < ( select avg ( tuổi ) from sinh viên )"
+    },
+    {
+        "inputs": "Tôi có bảng: lương (năm,id đội,id giải đấu,id cầu thủ,lương); cầu thủ (id cầu thủ,năm sinh,tháng sinh,ngày sinh,đất nước nơi sinh,tiểu bang nơi sinh,thành phố nơi sinh,năm mất,tháng mất,ngày mất,đất nước nơi mất,tiểu bang nơi mất,thành phố nơi mất,tên,họ,tên đệm,cân nặng,chiều cao,tay đánh thuận,tay ném thuận,ngày ra mắt,ngày chơi trận cuối,id trong retro,id trong brref). Hãy trả lời bằng câu truy vấn: Tên và họ của các cầu thủ được trả lương bởi đội Washington Nationals trong cả hai năm 2005 và 2007 là gì ?",
+        "labels": "select t2.tên , t2.họ from lương as t1 join cầu thủ as t2 on t1.id cầu thủ = t2.id cầu thủ join đội as t3 on t3.id đội trong br = t1.id đội where t1.năm = 2005 and t3.tên = \"Washington Nationals\" intersect select t2.tên , t2.họ from lương as t1 join cầu thủ as t2 on t1.id cầu thủ = t2.id cầu thủ join đội as t3 on t3.id đội trong br = t1.id đội where t1.năm = 2007 and t3.tên = \"Washington Nationals\""
+    },
+    {
+        "inputs": "Tôi có bảng: trường đại học (id trường,trường học,địa điểm,năm thành lập,liên kết,số lượng nhập học,biệt danh,giải đấu chính); trận đấu bóng rổ (id đội,id trường,tên đội,mùa giải acc,điểm phần trăm acc,chủ nhà acc,giải bóng rổ học đường acc,các trận đấu,phần trăm các trận đấu,các trận đấu sân nhà,các trận đấu ở giải bóng rổ học đường,các trận đấu trung lập). Hãy trả lời bằng câu truy vấn: Những trường đại học nào có số lượng nhập học dưới mức trung bình ? Cho biết tên đội bóng của những trường đại học này .",
+        "labels": "select t2.tên đội from trường đại học as t1 join trận đấu bóng rổ as t2 on t1.id trường = t2.id trường where số lượng nhập học < ( select avg ( số lượng nhập học ) from trường đại học )"
+    },
+    {
+        "inputs": "Tôi có bảng: thoả thuận (id thoả thuận,id khiếu nại,ngày khiếu nại được đưa ra,ngày khiếu nại được giải quyết,số tiền yêu cầu bồi thường,số tiền thoả thuận,id chính sách khách hàng). Hãy trả lời bằng câu truy vấn: Hãy cho biết ngày khiếu nại được đưa ra và ngày khiếu nại được giải quyết của từng thoả thuận .",
+        "labels": "select ngày khiếu nại được đưa ra , ngày khiếu nại được giải quyết from thoả thuận"
+    },
+    {
+        "inputs": "Tôi có bảng: dịch vụ (id dịch vụ,tên dịch vụ). Hãy trả lời bằng câu truy vấn: Có bao nhiêu dịch vụ ?",
+        "labels": "select count ( * ) from dịch vụ"
+    },
+    {
+        "inputs": "Tôi có bảng: bảng xếp hạng đội đua (id bảng xếp hạng đội đua,id cuộc đua,id đội đua,số điểm,vị trí,vị trí viết dưới dạng chữ,chiến thắng). Hãy trả lời bằng câu truy vấn: Mỗi đội đua đã tham dự bao nhiêu cuộc đua ?",
+        "labels": "select count ( * ) , id đội đua from bảng xếp hạng đội đua group by id đội đua"
+    },
+    {
+        "inputs": "Tôi có bảng: thành phố (tên thành phố,dân số,tên quốc gia,tên tiểu bang). Hãy trả lời bằng câu truy vấn: các thành phố có dân số lớn trong tiểu bang có diện tích lớn nhất là thành phố nào ?",
+        "labels": "select tên thành phố from thành phố where dân số > 150000 and tên tiểu bang = ( select tên tiểu bang from tiểu bang where diện tích = ( select max ( diện tích ) from tiểu bang ) )"
+    },
+    {
+        "inputs": "Tôi có bảng: xếp hạng đánh giá (id nhà phê bình,id phim,số sao đánh giá,ngày đánh giá); bộ phim (id phim,tiêu đề,năm,đạo diễn). Hãy trả lời bằng câu truy vấn: Cho biết tiêu đề của tất cả các bộ phim có số sao đánh giá nằm trong khoảng từ 3 đến 5 .",
+        "labels": "select t2.tiêu đề from xếp hạng đánh giá as t1 join bộ phim as t2 on t1.id phim = t2.id phim where t1.số sao đánh giá between 3 and 5"
+    },
+    {
+        "inputs": "Tôi có bảng: tiểu bang (tên tiểu bang,dân số,diện tích,tên quốc gia,thủ đô,mật độ dân số). Hãy trả lời bằng câu truy vấn: tiểu bang có dân số đông nhất trong số các tiểu bang giáp với oklahoma là tiểu bang nào ?",
+        "labels": "select tên tiểu bang from tiểu bang where tên tiểu bang in ( select giáp với from thông tin về các bang giáp ranh where tên tiểu bang = \"oklahoma\" ) order by dân số desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: địa điểm hội nghị (id hội nghị,tên hội nghị); bài báo (id bài báo,tiêu đề,id hội nghị,năm,số lượng trích dẫn,số lượng được trích dẫn bởi,id tạp chí). Hãy trả lời bằng câu truy vấn: những bài báo của Richard Ladner được xuất bản tại hội nghị chi là những bài báo nào ?",
+        "labels": "select distinct t3.id bài báo from địa điểm hội nghị as t4 join bài báo as t3 on t4.id hội nghị = t3.id hội nghị join viết bởi as t2 on t2.id bài báo = t3.id bài báo join tác giả as t1 on t2.id tác giả = t1.id tác giả where t1.tên tác giả = \"Richard Ladner\" and t4.tên hội nghị = \"chi\""
+    },
+    {
+        "inputs": "Tôi có bảng: ngân hàng (id chi nhánh,tên chi nhánh,số lượng khách hàng,thành phố,tiểu bang). Hãy trả lời bằng câu truy vấn: Tìm tên của các chi nhánh ngân hàng ở tiểu bang New York .",
+        "labels": "select tên chi nhánh from ngân hàng where tiểu bang = \"New York\""
+    },
+    {
+        "inputs": "Tôi có bảng: quy trình (mã,tên,chi phí). Hãy trả lời bằng câu truy vấn: Tìm tên của các quy trình có chi phí cao hơn 1000 và không đào tạo cho bác sĩ John Wen .",
+        "labels": "select tên from quy trình where chi phí > 1000 except select t3.tên from bác sĩ as t1 join đào tạo as t2 on t1.id nhân viên = t2.bác sĩ join quy trình as t3 on t3.mã = t2.điều trị where t1.tên = \"John Wen\""
+    },
+    {
+        "inputs": "Tôi có bảng: tập dữ liệu của bài báo (id bài báo,id tập dữ liệu); tập dữ liệu (id tập dữ liệu,tên tập dữ liệu). Hãy trả lời bằng câu truy vấn: những bài báo đã sử dụng bộ dữ liệu WebKB là những bài báo nào ?",
+        "labels": "select distinct t3.id bài báo from tập dữ liệu của bài báo as t2 join tập dữ liệu as t1 on t2.id tập dữ liệu = t1.id tập dữ liệu join bài báo as t3 on t3.id bài báo = t2.id bài báo where t1.tên tập dữ liệu = \"WebKB\""
+    },
+    {
+        "inputs": "Tôi có bảng: quận (id quận,tên quận,dân số,mã zip). Hãy trả lời bằng câu truy vấn: Cho biết tên của tất cả các quận và sắp xếp kết quả theo thứ tự bảng chữ cái giảm dần của tên quận .",
+        "labels": "select tên quận from quận order by tên quận desc"
+    },
+    {
+        "inputs": "Tôi có bảng: khoản vay (id khoản vay,loại khoản vay,id khách hàng,id chi nhánh,số tiền); ngân hàng (id chi nhánh,tên chi nhánh,số lượng khách hàng,thành phố,tiểu bang). Hãy trả lời bằng câu truy vấn: Tìm tên của các chi nhánh ngân hàng đã cung cấp các khoản vay cho một số khách hàng với điểm tín dụng dưới 100 .",
+        "labels": "select t2.tên chi nhánh from khoản vay as t1 join ngân hàng as t2 on t1.id chi nhánh = t2.id chi nhánh join khách hàng as t3 on t1.id khách hàng = t3.id khách hàng where t3.điểm tín dụng < 100"
+    },
+    {
+        "inputs": "Tôi có bảng: an ninh công cộng quận (id quận,tên,dân số,số lượng sĩ quan cảnh sát,số lượng cư dân trên một sĩ quan cảnh sát,số lượng vụ truy cứu trách nhiệm,tỉ lệ tội phạm,lực lượng cảnh sát,địa điểm). Hãy trả lời bằng câu truy vấn: Liệt kê tên của các quận có sự hoạt động của bộ phận an ninh công cộng và sắp xếp kết quả theo số lượng dân số giảm dần .",
+        "labels": "select tên from an ninh công cộng quận order by dân số desc"
+    },
+    {
+        "inputs": "Tôi có bảng: thể loại (id,tên); bài hát (id,tên,id album,id loại đa phương tiện,id thể loại,nhà soạn nhạc,mili giây,byte,giá đơn vị). Hãy trả lời bằng câu truy vấn: Tìm số lượng bài hát thuộc từng thể loại .",
+        "labels": "select count ( * ) , t1.tên from thể loại as t1 join bài hát as t2 on t1.id = t2.id thể loại group by t1.tên"
+    },
+    {
+        "inputs": "Tôi có bảng: cuộc bầu cử (id cuộc bầu cử,các quận / hạt đại diện,quận,đại biểu,đảng,phiếu bầu đầu tiên,uỷ ban); đảng (id đảng,năm,đảng,thống đốc,phó thống đốc,kiểm soát viên,bộ trưởng bộ tư pháp,thượng viện mỹ). Hãy trả lời bằng câu truy vấn: Những đảng nào có đại biểu nằm trong cả uỷ ban ' Phân bổ ngân sách ' và uỷ ban ' Vấn đề kinh tế ' ?",
+        "labels": "select t2.đảng from cuộc bầu cử as t1 join đảng as t2 on t1.đảng = t2.id đảng where t1.uỷ ban = \"Appropriations\" intersect select t2.đảng from cuộc bầu cử as t1 join đảng as t2 on t1.đảng = t2.id đảng where t1.uỷ ban = \"Economic Matters\""
+    },
+    {
+        "inputs": "Tôi có bảng: đoạn văn (id đoạn văn,id tài liệu,đoạn văn,những chi tiết khác); tài liệu (id tài liệu,id mẫu,tên tài liệu,mô tả về tài liệu,những chi tiết khác). Hãy trả lời bằng câu truy vấn: Hiển thị chủ đề của các đoạn văn bản thuộc tài liệu ' Đánh giá của khách hàng ' .",
+        "labels": "select t1.đoạn văn from đoạn văn as t1 join tài liệu as t2 on t1.id tài liệu = t2.id tài liệu where t2.tên tài liệu = \"Customer reviews\""
+    },
+    {
+        "inputs": "Tôi có bảng: tham khảo về danh mục sản phẩm (mã danh mục sản phẩm,mô tả về danh mục sản phẩm,đơn vị đo lường). Hãy trả lời bằng câu truy vấn: Cho biết mô tả về danh mục sản phẩm có mã là ' gia vị ' .",
+        "labels": "select mô tả về danh mục sản phẩm from tham khảo về danh mục sản phẩm where mã danh mục sản phẩm = \"Spices\""
+    },
+    {
+        "inputs": "Tôi có bảng: trường học (id,trường học,địa điểm,quận,năm). Hãy trả lời bằng câu truy vấn: Những cơ sở trường học nào được đặt tại Northridge , Los Angeles hoặc tại San Francisco , San Francisco ?",
+        "labels": "select trường học from trường học where địa điểm = \"Northridge\" and quận = \"Los Angeles\" union select trường học from trường học where địa điểm = \"San Francisco\" and quận = \"San Francisco\""
+    },
+    {
+        "inputs": "Tôi có bảng: nhà hàng (id,tên,loại thực phẩm,tên thành phố,xếp hạng đánh giá); địa điểm (id nhà hàng,số nhà,tên đường,tên thành phố). Hãy trả lời bằng câu truy vấn: Cho biết địa chỉ của những nhà hàng ẩm thực ' Ả Rập ' được đánh giá cao tại ' Mountain View ' và tên của những nhà hàng này .",
+        "labels": "select t2.số nhà , t1.tên from nhà hàng as t1 join địa điểm as t2 on t1.id = t2.id nhà hàng where t2.tên thành phố = \"mountain view\" and t1.loại thực phẩm = \"arabic\" and t1.xếp hạng đánh giá > 2.5"
+    },
+    {
+        "inputs": "Tôi có bảng: đội đua (id đội đua,tham khảo về đội đua,tên,quốc tịch,đường dẫn). Hãy trả lời bằng câu truy vấn: Số lượng đội đua của mỗi quốc gia là bao nhiêu ?",
+        "labels": "select count ( * ) , quốc tịch from đội đua group by quốc tịch"
+    },
+    {
+        "inputs": "Tôi có bảng: nhà sản xuất (mã,tên,trụ sở,người sáng lập,doanh thu). Hãy trả lời bằng câu truy vấn: Tìm tên của các nhà sản xuất không sản xuất ổ đĩa ' DVD ' .",
+        "labels": "select tên from nhà sản xuất except select t2.tên from sản phẩm as t1 join nhà sản xuất as t2 on t1.nhà sản xuất = t2.mã where t1.tên = \"DVD drive\""
+    },
+    {
+        "inputs": "Tôi có bảng: thành viên (id thành viên,tên,thẻ thành viên,tuổi,thời gian mua hàng,cấp độ thành viên,địa chỉ). Hãy trả lời bằng câu truy vấn: Thẻ thành viên được nắm giữ bởi một số thành viên sống ở ' Hartford ' và bởi cả một số thành viên sống ở ' Waterbury ' là thẻ gì ?",
+        "labels": "select thẻ thành viên from thành viên where địa chỉ = \"Hartford\" intersect select thẻ thành viên from thành viên where địa chỉ = \"Waterbury\""
+    },
+    {
+        "inputs": "Tôi có bảng: viết bởi (id bài báo,id tác giả); tác giả (id tác giả,tên tác giả). Hãy trả lời bằng câu truy vấn: Những bài báo nào được viết bởi Peter Mertens và Dina Barbian ?",
+        "labels": "select distinct t3.id bài báo from viết bởi as t3 join tác giả as t2 on t3.id tác giả = t2.id tác giả join viết bởi as t4 on t4.id bài báo = t3.id bài báo join tác giả as t1 on t4.id tác giả = t1.id tác giả where t2.tên tác giả = \"Peter Mertens\" and t1.tên tác giả = \"Dina Barbian\""
+    },
+    {
+        "inputs": "Tôi có bảng: viết bởi (id bài báo,id tác giả); tác giả (id tác giả,tên tác giả). Hãy trả lời bằng câu truy vấn: Christopher D. Manning có bao nhiêu ấn phẩm ?",
+        "labels": "select distinct count ( distinct t2.id bài báo ) from viết bởi as t2 join tác giả as t1 on t2.id tác giả = t1.id tác giả where t1.tên tác giả = \"Christopher D. Manning\""
+    },
+    {
+        "inputs": "Tôi có bảng: kênh truyền hình (id,tên sê-ri,quốc gia,ngôn ngữ,nội dung,tỷ lệ điểm ảnh,truyền hình độ nét cao,số tiền trả cho mỗi lượt xem,gói tuỳ chọn). Hãy trả lời bằng câu truy vấn: Quốc gia nào có số lượng kênh truyền hình nhiều nhất và họ có bao nhiêu kênh ?",
+        "labels": "select quốc gia , count ( * ) from kênh truyền hình group by quốc gia order by count ( * ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: cụm từ khoá của bài báo (id bài báo,id cụm từ khoá); cụm từ khoá (id cụm từ khoá,tên cụm từ khoá). Hãy trả lời bằng câu truy vấn: Ed Desmond đã viết bao nhiêu bài báo về ' Phân tích ngữ nghĩa ' ?",
+        "labels": "select distinct count ( distinct t3.id bài báo ) from cụm từ khoá của bài báo as t1 join cụm từ khoá as t4 on t1.id cụm từ khoá = t4.id cụm từ khoá join viết bởi as t3 on t3.id bài báo = t1.id bài báo join tác giả as t2 on t3.id tác giả = t2.id tác giả where t2.tên tác giả = \"Ed Desmond\" and t4.tên cụm từ khoá = \"Semantic Parsing\""
+    },
+    {
+        "inputs": "Tôi có bảng: nhân viên (id nhân viên,tên,họ,e-mail,số điện thoại,ngày được thuê,id công việc,lương,phí hoa hồng,id người quản lý,id bộ phận). Hãy trả lời bằng câu truy vấn: Hiển thị tên đầy đủ ( tên và họ ) , ngày được thuê , tiền lương và id bộ phận của những nhân viên có tên không chứa chữ cái M và sắp xếp kết quả theo thứ tự tăng dần về id bộ phận .",
+        "labels": "select tên , họ , ngày được thuê , lương , id bộ phận from nhân viên where tên not like \"%M%\" order by id bộ phận"
+    },
+    {
+        "inputs": "Tôi có bảng: nhân viên (id nhân viên,giới tính nhân viên,tên nhân viên); phân công nhân viên cho các bộ phận (id nhân viên,id bộ phận,ngày được chỉ định,mã chức danh công việc,được chỉ định đến ngày). Hãy trả lời bằng câu truy vấn: Những nhân viên nào đã được giao cho nhiều công việc ? Cho biết tên của những nhân viên này .",
+        "labels": "select t1.tên nhân viên from nhân viên as t1 join phân công nhân viên cho các bộ phận as t2 on t1.id nhân viên = t2.id nhân viên group by t2.id nhân viên having count ( * ) > 1"
+    },
+    {
+        "inputs": "Tôi có bảng: chuyến đi (id,thời lượng,ngày bắt đầu,tên trạm bắt đầu,id trạm bắt đầu,ngày kết thúc,tên trạm kết thúc,id trạm kết thúc,id xe đạp,loại đăng ký,mã zip). Hãy trả lời bằng câu truy vấn: Tìm id và tên của các trạm mà từ đó có ít nhất 200 chuyến đi bắt đầu .",
+        "labels": "select id trạm bắt đầu , tên trạm bắt đầu from chuyến đi group by tên trạm bắt đầu having count ( * ) >= 200"
+    },
+    {
+        "inputs": "Tôi có bảng: cầu thủ (id cầu thủ,năm sinh,tháng sinh,ngày sinh,đất nước nơi sinh,tiểu bang nơi sinh,thành phố nơi sinh,năm mất,tháng mất,ngày mất,đất nước nơi mất,tiểu bang nơi mất,thành phố nơi mất,tên,họ,tên đệm,cân nặng,chiều cao,tay đánh thuận,tay ném thuận,ngày ra mắt,ngày chơi trận cuối,id trong retro,id trong brref); giải đấu của tất cả các ngôi sao (id cầu thủ,năm,số lượng trận đấu,id trận đấu,id đội,id giải đấu,gp,vị trí bắt đầu). Hãy trả lời bằng câu truy vấn: Cầu thủ nào có nhiều kinh nghiệm tham dự giải đấu của tất cả các ngôi sao nhất ? Hãy cho biết tên , họ và id cũng như số lần tham dự của cầu thủ này .",
+        "labels": "select t1.tên , t1.họ , t1.id cầu thủ , count ( * ) from cầu thủ as t1 join giải đấu của tất cả các ngôi sao as t2 on t1.id cầu thủ = t2.id cầu thủ group by t1.id cầu thủ order by count ( * ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: chuyến đi (id,thời lượng,ngày bắt đầu,tên trạm bắt đầu,id trạm bắt đầu,ngày kết thúc,tên trạm kết thúc,id trạm kết thúc,id xe đạp,loại đăng ký,mã zip). Hãy trả lời bằng câu truy vấn: Từ hồ sơ chuyến đi , tìm số lượng các xe đạp khác nhau .",
+        "labels": "select count ( distinct id xe đạp ) from chuyến đi"
+    },
+    {
+        "inputs": "Tôi có bảng: bác sĩ (id nhân viên,tên,chức vụ,ssn); bệnh nhân (ssn,tên,địa chỉ,số điện thoại,id bảo hiểm,bác sĩ chăm sóc). Hãy trả lời bằng câu truy vấn: Những bác sĩ nào phụ trách nhiều hơn một bệnh nhân ? Cho tôi biết tên của họ .",
+        "labels": "select t1.tên from bác sĩ as t1 join bệnh nhân as t2 on t1.id nhân viên = t2.bác sĩ chăm sóc group by t1.id nhân viên having count ( * ) > 1"
+    },
+    {
+        "inputs": "Tôi có bảng: khách (id khách,mã giới tính,tên của khách,họ của khách,ngày sinh). Hãy trả lời bằng câu truy vấn: Ngày sinh của tất cả các vị khách có giới tính ' Nam ' là những ngày nào ?",
+        "labels": "select ngày sinh from khách where mã giới tính = \"Male\""
+    },
+    {
+        "inputs": "Tôi có bảng: mẫu đơn (id mẫu đơn,mã loại mẫu đơn,id dịch vụ,mã số mẫu đơn,tên mẫu đơn,mô tả về mẫu đơn). Hãy trả lời bằng câu truy vấn: Liệt kê tất cả các loại mẫu đơn .",
+        "labels": "select distinct mã loại mẫu đơn from mẫu đơn"
+    },
+    {
+        "inputs": "Tôi có bảng: tàu lượn siêu tốc (id tàu lượn siêu tốc,tên,công viên,id quốc gia,chiều dài,chiều cao,tốc độ,ngày mở cửa,tình trạng). Hãy trả lời bằng câu truy vấn: Hiển thị danh sách không trùng lặp bao gồm tình trạng của các đường tàu lượn và số lượng đường tàu lượn thuộc về mỗi loại tình trạng .",
+        "labels": "select tình trạng , count ( * ) from tàu lượn siêu tốc group by tình trạng"
+    },
+    {
+        "inputs": "Tôi có bảng: tài liệu (id tài liệu,mã loại tài liệu,id dự án,ngày ban hành tài liệu,tên tài liệu,mô tả về tài liệu,những chi tiết khác). Hãy trả lời bằng câu truy vấn: Mỗi dự án có bao nhiêu tài liệu với mã loại tài liệu là BK ?",
+        "labels": "select count ( * ) , id dự án from tài liệu where mã loại tài liệu = \"BK\" group by id dự án"
+    },
+    {
+        "inputs": "Tôi có bảng: vở nhạc kịch (id vở nhạc kịch,tên,năm,giải thưởng,thể loại,đề cử,kết quả). Hãy trả lời bằng câu truy vấn: Những vở nhạc kịch không có diễn viên có tên là gì ?",
+        "labels": "select tên from vở nhạc kịch where id vở nhạc kịch not in ( select id vở nhạc kịch from diễn viên )"
+    },
+    {
+        "inputs": "Tôi có bảng: khách hàng (id khách hàng,tên khách hàng,loại tài khoản,số dư tài khoản,số lượng khoản vay,điểm tín dụng,id chi nhánh,tiểu bang). Hãy trả lời bằng câu truy vấn: Tìm tên của những khách hàng có điểm tín dụng thấp hơn điểm tín dụng trung bình của tất cả các khách hàng .",
+        "labels": "select tên khách hàng from khách hàng where điểm tín dụng < ( select avg ( điểm tín dụng ) from khách hàng )"
+    },
+    {
+        "inputs": "Tôi có bảng: đơn đặt hàng (id đơn hàng,id khách hàng,trạng thái đặt hàng,ngày đặt hàng,chi tiết đặt hàng). Hãy trả lời bằng câu truy vấn: Id của đơn hàng gần đây nhất là gì ?",
+        "labels": "select id đơn hàng from đơn đặt hàng order by ngày đặt hàng desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: nhân viên (id nhân viên,tên,họ,e-mail,số điện thoại,ngày được thuê,id công việc,lương,phí hoa hồng,id người quản lý,id bộ phận). Hãy trả lời bằng câu truy vấn: Ngày được thuê của nhân viên không có chữ cái M trong tên của họ là ngày nào ?",
+        "labels": "select ngày được thuê from nhân viên where tên not like \"%M%\""
+    },
+    {
+        "inputs": "Tôi có bảng: nhân viên (id nhân viên,tên,họ,e-mail,số điện thoại,ngày được thuê,id công việc,lương,phí hoa hồng,id người quản lý,id bộ phận). Hãy trả lời bằng câu truy vấn: Tên đầy đủ , ngày được thuê , tiền lương và id bộ phận của các nhân viên không có chữ cái M trong tên của họ ?",
+        "labels": "select tên , họ , ngày được thuê , lương , id bộ phận from nhân viên where tên not like \"%M%\""
+    },
+    {
+        "inputs": "Tôi có bảng: vấn đề (id vấn đề,id sản phẩm,được uỷ quyền ngừng xem xét bởi nhân viên có id,được báo cáo bởi nhân viên có id,ngày vấn đề được báo cáo,ngày vấn đề được giải quyết,mô tả về vấn đề,chi tiết khác về các vấn đề); sản phẩm (id sản phẩm,tên sản phẩm,chi tiết về sản phẩm); nhân viên (id nhân viên,tên của nhân viên,họ của nhân viên,chi tiết khác về nhân viên). Hãy trả lời bằng câu truy vấn: Cho biết tên và họ của những nhân viên đã báo cáo các vấn đề của sản phẩm ' rem ' nhưng không phải là các vấn đề của sản phẩm ' aut ' ?",
+        "labels": "select t3.tên của nhân viên , t3.họ của nhân viên from vấn đề as t1 join sản phẩm as t2 join nhân viên as t3 on t1.id sản phẩm = t2.id sản phẩm and t1.được báo cáo bởi nhân viên có id = t3.id nhân viên where t2.tên sản phẩm = \"rem\" except select t3.tên của nhân viên , t3.họ của nhân viên from vấn đề as t1 join sản phẩm as t2 join nhân viên as t3 on t1.id sản phẩm = t2.id sản phẩm and t1.được báo cáo bởi nhân viên có id = t3.id nhân viên where t2.tên sản phẩm = \"aut\""
+    },
+    {
+        "inputs": "Tôi có bảng: câu lạc bộ (id câu lạc bộ,tên câu lạc bộ,mô tả về câu lạc bộ,địa điểm câu lạc bộ). Hãy trả lời bằng câu truy vấn: Cho biết những mô tả về câu lạc bộ có tên là ' Trò chơi với bút và giấy ' ?",
+        "labels": "select mô tả về câu lạc bộ from câu lạc bộ where tên câu lạc bộ = \"Pen and Paper Gaming\""
+    },
+    {
+        "inputs": "Tôi có bảng: loại tài liệu (mã loại tài liệu,tên loại tài liệu,mô tả về loại tài liệu). Hãy trả lời bằng câu truy vấn: Đối với từng loại tài liệu , hãy cho biết mã , tên và mô tả của loại tài liệu tương ứng .",
+        "labels": "select mã loại tài liệu , tên loại tài liệu , mô tả về loại tài liệu from loại tài liệu"
+    },
+    {
+        "inputs": "Tôi có bảng: thành viên (id thành viên,tên,thẻ thành viên,tuổi,thời gian mua hàng,cấp độ thành viên,địa chỉ). Hãy trả lời bằng câu truy vấn: Địa chỉ nào có đồng thời các thành viên dưới 30 tuổi và các thành viên trên 40 tuổi ?",
+        "labels": "select địa chỉ from thành viên where tuổi < 30 intersect select địa chỉ from thành viên where tuổi > 40"
+    },
+    {
+        "inputs": "Tôi có bảng: bài hát (tên bài hát,tên nghệ sĩ,quốc gia,bài hát id,là thể loại gì,đánh giá,ngôn ngữ,ngày phát hành,độ phân giải). Hãy trả lời bằng câu truy vấn: Đối với tất cả các ngôn ngữ được sử dụng cho các bài hát có độ phân giải tệp lưu trên 500 , cho biết ngôn ngữ được sử dụng thường xuyên nhất . Đồng thời cho biết tên của những nghệ sĩ đã sử dụng ngôn ngữ này để sáng tác các bài hát có độ phân giải tệp lưu trên 500 .",
+        "labels": "select tên nghệ sĩ from bài hát where độ phân giải > 500 group by ngôn ngữ order by count ( * ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: khách hàng (id khách hàng,phương thức thanh toán,tên khách hàng,ngày trở thành khách hàng,chi tiết khác về khách hàng); lượt đặt hàng của khách hàng (id đơn hàng,id khách hàng,tình trạng đặt hàng,ngày đặt hàng,chi tiết đặt hàng). Hãy trả lời bằng câu truy vấn: Cho biết tên của khách hàng đã đặt mua tổng cộng nhiều mặt hàng nhiều nhất .",
+        "labels": "select t1.tên khách hàng from khách hàng as t1 join lượt đặt hàng của khách hàng as t2 on t1.id khách hàng = t2.id khách hàng join mặt hàng được đặt as t3 on t2.id đơn hàng = t3.id đơn hàng group by t1.tên khách hàng order by sum ( t3.số lượng đặt hàng ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: thú cưng (id thú cưng,loại thú cưng,tuổi của thú cưng,cân nặng). Hãy trả lời bằng câu truy vấn: Tìm trọng lượng của thú cưng nhỏ tuổi nhất .",
+        "labels": "select cân nặng from thú cưng order by tuổi của thú cưng limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: căn hộ (id căn hộ,id toà nhà,mã loại căn hộ,Số căn hộ,số lượng phòng tắm,số lượng phòng ngủ,số lượng phòng). Hãy trả lời bằng câu truy vấn: Có bao nhiêu căn hộ không có bất kỳ cơ sở vật chất nào ?",
+        "labels": "select count ( * ) from căn hộ where id căn hộ not in ( select id căn hộ from cơ sở vật chất trong căn hộ )"
+    },
+    {
+        "inputs": "Tôi có bảng: viết bởi (id bài báo,id tác giả); tác giả (id tác giả,tên tác giả). Hãy trả lời bằng câu truy vấn: số lượng bài báo mà Mirella Lapata đã trích dẫn là bao nhiêu ?",
+        "labels": "select distinct count ( t3.id bài báo được trích dẫn ) from viết bởi as t2 join tác giả as t1 on t2.id tác giả = t1.id tác giả join trích dẫn as t3 on t2.id bài báo = t3.id bài báo trích dẫn where t1.tên tác giả = \"Mirella Lapata\""
+    },
+    {
+        "inputs": "Tôi có bảng: buổi biểu diễn (id buổi biểu diễn,ngày,chủ nhà,địa điểm,số lượng người tham dự). Hãy trả lời bằng câu truy vấn: Hiển thị các địa điểm đã tổ chức cùng lúc một số buổi biểu diễn với nhiều hơn 2000 người tham dự và một số buổi biểu diễn với ít hơn 1000 người tham dự .",
+        "labels": "select địa điểm from buổi biểu diễn where số lượng người tham dự > 2000 intersect select địa điểm from buổi biểu diễn where số lượng người tham dự < 1000"
+    },
+    {
+        "inputs": "Tôi có bảng: trải qua điều trị (bệnh nhân,quy trình,lượt nằm viện,ngày trải qua điều trị,bác sĩ,y tá giúp việc). Hãy trả lời bằng câu truy vấn: Tìm bệnh nhân được điều trị gần đây nhất ?",
+        "labels": "select bệnh nhân from trải qua điều trị order by ngày trải qua điều trị limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: thành phố (id thành phố,id quận,tên,tỷ lệ người da trắng,tỷ lệ người da đen,tỷ lệ người Mỹ,tỷ lệ người châu Á,tỷ lệ người đa chủng tộc,tỷ lệ người Mỹ La Tinh); an ninh công cộng quận (id quận,tên,dân số,số lượng sĩ quan cảnh sát,số lượng cư dân trên một sĩ quan cảnh sát,số lượng vụ truy cứu trách nhiệm,tỉ lệ tội phạm,lực lượng cảnh sát,địa điểm). Hãy trả lời bằng câu truy vấn: Hiển thị tên của các thành phố và tên các quận của chúng .",
+        "labels": "select t1.tên , t2.tên from thành phố as t1 join an ninh công cộng quận as t2 on t1.id quận = t2.id quận"
+    },
+    {
+        "inputs": "Tôi có bảng: doanh nhân (id doanh nhân,id cá nhân,công ty,số tiền yêu cầu,nhà đầu tư); cá nhân (id cá nhân,tên,chiều cao,cân nặng,ngày sinh). Hãy trả lời bằng câu truy vấn: Cho biết tên của các doanh nhân .",
+        "labels": "select t2.tên from doanh nhân as t1 join cá nhân as t2 on t1.id cá nhân = t2.id cá nhân"
+    },
+    {
+        "inputs": "Tôi có bảng: bài hát (id,tên,id album,id loại đa phương tiện,id thể loại,nhà soạn nhạc,mili giây,byte,giá đơn vị); danh sách bài hát (id danh sách phát,id bài hát). Hãy trả lời bằng câu truy vấn: Cho biết tên của các bản nhạc nằm trong danh sách nhạc ' Phim ' nhưng không nằm trong danh sách ' Âm nhạc ' .",
+        "labels": "select t1.tên from bài hát as t1 join danh sách bài hát as t2 on t1.id = t2.id bài hát join danh sách phát as t3 on t2.id danh sách phát = t3.id where t3.tên = \"Movies\" except select t1.tên from bài hát as t1 join danh sách bài hát as t2 on t1.id = t2.id bài hát join danh sách phát as t3 on t2.id danh sách phát = t3.id where t3.tên = \"Music\""
+    },
+    {
+        "inputs": "Tôi có bảng: giảng viên (id,tên,tên khoa,lương). Hãy trả lời bằng câu truy vấn: Tìm id của những giảng viên không dạy bất kỳ khoá học nào ?",
+        "labels": "select id from giảng viên except select id from giảng dạy"
+    },
+    {
+        "inputs": "Tôi có bảng: quốc gia (mã,tên,châu lục,khu vực,diện tích bề mặt,năm độc lập,dân số,tuổi thọ,gnp,gnp cũ,tên địa phương,hình thức chính phủ,nguyên thủ quốc gia,thủ đô,mã 2); ngôn ngữ (mã quốc gia,ngôn ngữ,ngôn ngữ chính thức,phần trăm). Hãy trả lời bằng câu truy vấn: Những ngôn ngữ nào được sử dụng bởi duy nhất một quốc gia có hình thức chính phủ là ' Cộng hoà ' ?",
+        "labels": "select t2.ngôn ngữ from quốc gia as t1 join ngôn ngữ as t2 on t1.mã = t2.mã quốc gia where t1.hình thức chính phủ = \"Republic\" group by t2.ngôn ngữ having count ( * ) = 1"
+    },
+    {
+        "inputs": "Tôi có bảng: bài báo (id bài báo,tiêu đề,id hội nghị,năm,số lượng trích dẫn,số lượng được trích dẫn bởi,id tạp chí); trích dẫn (id bài báo trích dẫn,id bài báo được trích dẫn). Hãy trả lời bằng câu truy vấn: những bài báo nào đã được oren etzioni trích dẫn ?",
+        "labels": "select distinct t3.id bài báo from bài báo as t3 join trích dẫn as t4 on t3.id bài báo = t4.id bài báo trích dẫn join viết bởi as t2 on t2.id bài báo = t4.id bài báo được trích dẫn join tác giả as t1 on t2.id tác giả = t1.id tác giả where t1.tên tác giả = \"oren etzioni\""
+    },
+    {
+        "inputs": "Tôi có bảng: trường học (id,trường học,địa điểm,quận,năm); cán bộ giảng dạy (trường học,năm,cán bộ giảng dạy). Hãy trả lời bằng câu truy vấn: Liệt kê các trường có từ 600 đến 1000 giảng viên trong năm 2004 .",
+        "labels": "select t1.trường học from trường học as t1 join cán bộ giảng dạy as t2 on t1.id = t2.trường học where t2.cán bộ giảng dạy >= 600 and t2.cán bộ giảng dạy <= 1000 and t1.năm = 2004"
+    },
+    {
+        "inputs": "Tôi có bảng: bài báo (tóm tắt,id hội nghị,số lượng trích dẫn,id tạp chí,id bài báo,số lượng trích dẫn,tiêu đề,năm); hội nghị (id hội nghị,trang chủ,tên). Hãy trả lời bằng câu truy vấn: những tác giả nào có các bài báo tại hội nghị VLDB diễn ra vào năm 2002 ?",
+        "labels": "select t1.tên from bài báo as t4 join hội nghị as t2 on t4.id hội nghị = t2.id hội nghị join viết as t3 on t3.id bài báo = t4.id bài báo join tác giả as t1 on t3.id tác giả = t1.id tác giả where t2.tên = \"VLDB\" and t4.năm = 2002"
+    },
+    {
+        "inputs": "Tôi có bảng: sản phẩm (mã,tên,giá bán,nhà sản xuất). Hãy trả lời bằng câu truy vấn: Đối với mỗi loại sản phẩm , hãy cho biết mã và tên của sản phẩm có giá rẻ nhất .",
+        "labels": "select mã , tên , min ( giá bán ) from sản phẩm group by tên"
+    },
+    {
+        "inputs": "Tôi có bảng: căn hộ (id căn hộ,id toà nhà,mã loại căn hộ,Số căn hộ,số lượng phòng tắm,số lượng phòng ngủ,số lượng phòng). Hãy trả lời bằng câu truy vấn: Số lượng phòng trung bình của các căn hộ với mã loại ' Studio ' là bao nhiêu ?",
+        "labels": "select avg ( số lượng phòng ) from căn hộ where mã loại căn hộ = \"Studio\""
+    },
+    {
+        "inputs": "Tôi có bảng: trường đại học (id trường,trường học,địa điểm,năm thành lập,liên kết,số lượng nhập học,biệt danh,giải đấu chính). Hãy trả lời bằng câu truy vấn: Liệt kê tất cả các trường ' công lập ' và địa điểm của từng trường .",
+        "labels": "select trường học , địa điểm from trường đại học where liên kết = \"Public\""
+    },
+    {
+        "inputs": "Tôi có bảng: từ khoá của bài báo (id bài báo,id từ khoá); từ khoá (từ khoá,id từ khoá). Hãy trả lời bằng câu truy vấn: các bài báo có chứa từ khoá ' Ngôn ngữ tự nhiên ' nhận được tổng cộng bao nhiêu trích dẫn ?",
+        "labels": "select sum ( t3.số lượng trích dẫn ) from từ khoá của bài báo as t2 join từ khoá as t1 on t2.id từ khoá = t1.id từ khoá join bài báo as t3 on t3.id bài báo = t2.id bài báo where t1.từ khoá = \"Natural Language\""
+    },
+    {
+        "inputs": "Tôi có bảng: địa điểm hội nghị (id hội nghị,tên hội nghị); bài báo (id bài báo,tiêu đề,id hội nghị,năm,số lượng trích dẫn,số lượng được trích dẫn bởi,id tạp chí). Hãy trả lời bằng câu truy vấn: Michael Stonebraker xuất bản bài báo VLDB đầu tiên khi nào ?",
+        "labels": "select distinct t3.năm from địa điểm hội nghị as t4 join bài báo as t3 on t4.id hội nghị = t3.id hội nghị join viết bởi as t2 on t2.id bài báo = t3.id bài báo join tác giả as t1 on t2.id tác giả = t1.id tác giả where t1.tên tác giả = \"Michael Stonebraker\" and t4.tên hội nghị = \"VLDB\" order by t3.năm"
+    },
+    {
+        "inputs": "Tôi có bảng: tài liệu (id tài liệu,id mẫu,tên tài liệu,mô tả về tài liệu,những chi tiết khác). Hãy trả lời bằng câu truy vấn: Id , id mẫu và mô tả của tài liệu có tên là ' Robbin CV ' ?",
+        "labels": "select id tài liệu , id mẫu , mô tả về tài liệu from tài liệu where tên tài liệu = \"Robbin CV\""
+    },
+    {
+        "inputs": "Tôi có bảng: trường đại học (id trường,trường học,địa điểm,năm thành lập,liên kết,số lượng nhập học,biệt danh,giải đấu chính). Hãy trả lời bằng câu truy vấn: Tổng số lượng nhập học của tất cả các trường đại học là bao nhiêu ? Đồng thời , cho biết số lượng nhập học của trường đại học tuyển sinh ít nhất .",
+        "labels": "select sum ( số lượng nhập học ) , min ( số lượng nhập học ) from trường đại học"
+    },
+    {
+        "inputs": "Tôi có bảng: sân bay (id sân bay,tên,thành phố,quốc gia,x,y,độ cao,iata,icao). Hãy trả lời bằng câu truy vấn: Tìm tên của các sân bay có độ cao nằm trong khoảng từ -50 đến 50 .",
+        "labels": "select tên from sân bay where độ cao between -50 and 50"
+    },
+    {
+        "inputs": "Tôi có bảng: trình tăng tốc mạng máy khách (id,tên,hệ điều hành,máy khách,kết nối). Hãy trả lời bằng câu truy vấn: Có bao nhiêu loại máy khách khác nhau được hỗ trợ bởi các trình tăng tốc mạng máy khách ?",
+        "labels": "select count ( distinct máy khách ) from trình tăng tốc mạng máy khách"
+    },
+    {
+        "inputs": "Tôi có bảng: enzyme (id,tên,vị trí,sản phẩm,nhiễm sắc thể,omim,rối loạn chuyển hoá porphyrin). Hãy trả lời bằng câu truy vấn: Tổng số enzyme là bao nhiêu ?",
+        "labels": "select count ( * ) from enzyme"
+    },
+    {
+        "inputs": "Tôi có bảng: dịch vụ (id dịch vụ,mã loại dịch vụ,tên dịch vụ,mô tả về dịch vụ). Hãy trả lời bằng câu truy vấn: Tìm tên của các dịch vụ chưa từng được sử dụng .",
+        "labels": "select tên dịch vụ from dịch vụ except select t1.tên dịch vụ from dịch vụ as t1 join dịch vụ của đảng as t2 on t1.id dịch vụ = t2.id dịch vụ"
+    },
+    {
+        "inputs": "Tôi có bảng: thể loại (id thể loại,tên); bản nhạc (id bản nhạc,tên,id album,id kiểu phương tiện,id thể loại,nhà soạn nhạc,mili giây,byte,giá đơn vị). Hãy trả lời bằng câu truy vấn: Giá đơn vị trung bình của các bản nhạc Rock là bao nhiêu ?",
+        "labels": "select avg ( t2.giá đơn vị ) from thể loại as t1 join bản nhạc as t2 on t1.id thể loại = t2.id thể loại where t1.tên = \"Rock\""
+    },
+    {
+        "inputs": "Tôi có bảng: thể loại (id thể loại,tên); bản nhạc (id bản nhạc,tên,id album,id kiểu phương tiện,id thể loại,nhà soạn nhạc,mili giây,byte,giá đơn vị). Hãy trả lời bằng câu truy vấn: Tìm tên của thể loại xuất hiện thường xuyên nhất trong tất cả các bài hát .",
+        "labels": "select t1.tên from thể loại as t1 join bản nhạc as t2 on t1.id thể loại = t2.id thể loại group by t2.id thể loại order by count ( * ) desc limit 1"
+    },
+    {
+        "inputs": "Tôi có bảng: địa điểm hội nghị (id hội nghị,tên hội nghị); bài báo (id bài báo,tiêu đề,id hội nghị,năm,số lượng trích dẫn,số lượng được trích dẫn bởi,id tạp chí). Hãy trả lời bằng câu truy vấn: liệt kê những bài báo ở hội nghị chi .",
+        "labels": "select distinct t1.id bài báo from địa điểm hội nghị as t2 join bài báo as t1 on t2.id hội nghị = t1.id hội nghị where t2.tên hội nghị = \"chi\""
+    },
+    {
+        "inputs": "Tôi có bảng: nhân viên (id nhân viên,tên,họ,e-mail,số điện thoại,ngày được thuê,id công việc,lương,phí hoa hồng,id người quản lý,id bộ phận); bộ phận (id bộ phận,tên bộ phận,id người quản lý,id địa điểm). Hãy trả lời bằng câu truy vấn: Id của các nhân viên và tên của các quốc gia nơi những nhân viên này đang làm việc ?",
+        "labels": "select t1.id nhân viên , t4.tên quốc gia from nhân viên as t1 join bộ phận as t2 on t1.id bộ phận = t2.id bộ phận join địa điểm as t3 on t2.id địa điểm = t3.id địa điểm join quốc gia as t4 on t3.id quốc gia = t4.id quốc gia"
+    },
+    {
+        "inputs": "Tôi có bảng: sinh viên (id sinh viên,họ,tên,tuổi,giới tính,chuyên ngành,cố vấn,mã thành phố); hồ sơ bỏ phiếu (id sinh viên,ngày đăng kí,chu kỳ bầu cử,phiếu bầu vị trí lớp trưởng,phiếu bầu vị trí lớp phó,phiếu bầu vị trí thư ký,phiếu bầu vị trí thủ quỹ,phiếu bầu lớp trưởng,phiếu bầu vị trí thượng nghị sĩ lớp). Hãy trả lời bằng câu truy vấn: Hiển thị những cái tên khác nhau của các sinh viên có phiếu bầu cho vị trí thượng nghị sĩ của lớp .",
+        "labels": "select distinct t1.tên from sinh viên as t1 join hồ sơ bỏ phiếu as t2 on t1.id sinh viên = t2.phiếu bầu vị trí thượng nghị sĩ lớp"
+    }
+]
